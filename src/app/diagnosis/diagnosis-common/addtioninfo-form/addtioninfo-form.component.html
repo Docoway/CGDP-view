@@ -1,0 +1,34 @@
+<form #addtionInfoForm nz-form nzType="'horizontal'" [formGroup]="addtionValidateForm" (ngSubmit)="submitAddtionForm($event,addtionInfoForm.value)">
+    <div nz-form-item nz-row>
+        <div nz-form-label nz-col [nzSm]="4" [nzXs]="24">
+            <label>主诉和现病史</label>
+        </div>
+        <div nz-form-control nz-col [nzSm]="8" [nzXs]="24">
+            <nz-input [nzType]="'textarea'" [nzSize]="'large'" [nzRows]="4"></nz-input>
+        </div>
+    </div>
+    <div nz-form-item nz-row>
+        <div nz-form-label nz-col [nzSm]="4" [nzXs]="24">
+            <label>家族史</label>
+        </div>
+        <div nz-form-control nz-col [nzSm]="8" [nzXs]="24">
+            <nz-input [nzType]="'textarea'" [nzSize]="'large'" [nzRows]="4"></nz-input>
+        </div>
+    </div>
+    <div nz-form-item nz-row>
+        <div nz-form-label nz-col [nzOffset]="2" [nzSm]="6" [nzXs]="24">
+            <label>其它检查结果(包括脑电图、肌电图、影像学、激素、病理、染色体等)</label>
+        </div>
+        <div nz-form-control nz-col [nzOffset]="4" [nzSm]="16" [nzXs]="24">
+            <nz-input [nzType]="'textarea'" [nzSize]="'large'" [nzRows]="4"></nz-input>
+        </div>
+    </div>
+    <div nz-form-item nz-row>
+        <div nz-form-control nz-col [nzOffset]="4" [nzSm]="6" [nzXs]="24">
+            <button (click)="addPicture($event)" nz-button [nzType]="'file'" [nzSize]="'large'">
+                <i class="anticon anticon-plus"></i>
+                <span>Add picture</span>
+            </button>
+        </div>
+    </div>
+</form>

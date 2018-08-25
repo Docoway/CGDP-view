@@ -1,0 +1,40 @@
+<nz-layout>
+    <nz-header *ngIf="isUseNav">
+        <nav class="navbar navbar-expand navbar-light" style="border-radius: unset; height: 64px;">
+            <a class="navbar-brand" routerLink="/"><img src="resources/images/hp_zh_cn_gray.png"></a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" datatarget="#navbarSupportedContent"><span class="navbar-toggle-icon"></span></button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mr-auto ml-5">
+                    <li *ngFor="let navResource of navResources" class="nav-item ml-5" (click)="selectNav(navResource)" [class.active]="navResource.selected">
+                        <a class="nav-link">
+                            <img [src]="navResource.imageUrl" style="width: 30px;">
+                            <span>{{navResource.label}}</span>
+                        </a>
+                    </li>
+                </ul>
+                <ul class="navbar-nav mr-3">
+                    <li *ngIf="!isAuthenticated" class="nav-item"><button class="btn my-2 my-lg-0" type="button" routerLink="login">Login</button></li>
+                    
+                    <li *ngIf="isAuthenticated" dropdown class="btn-group">
+                        <a dropdownToggle href (click)="false" class="nav-link dropdown-toggle"><span><img src="assets/images/index/user.png"></span>{{ userName }}</a>
+                        <ul *dropdownMenu class="dropdown-menu dropdown-menu-right">
+                            <li><a class="dropdown-item" (click)="logout()">Logout</a></li>
+                        </ul>
+                    </li>
+                    <!--
+                    <li *ngIf="isAuthenticated">
+                        <nz-dropdown [nzTrigger]="'click'">
+                            <a class="ant-dropdown-link" nz-dropdown><span><img src="assets/images/index/user.png"></span>{{ userName }}</a>
+                            <ul nz-menu>
+                                <li nz-menu-item (click)="logout()">Logout</li>
+                            </ul>
+                        </nz-dropdown>
+                    </li>
+                    -->
+                </ul>
+            </div>
+        </nav>
+    </nz-header>
+
+    <router-outlet></router-outlet>
+</nz-layout>

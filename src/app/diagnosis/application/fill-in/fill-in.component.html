@@ -1,0 +1,44 @@
+<div nz-row>
+    <div nz-col [nzXs]="24" [nzSm]="24" [nzMd]="24" [nzLg]="24" [nzXl]="24" style="padding: 1%;">
+        
+        
+    </div>
+
+    <nz-steps [(nzCurrent)]="current" style="padding: 30px 50px;">
+        <nz-step [nzTitle]="'基本信息'" [nzDescription]="''"></nz-step>
+        <nz-step [nzTitle]="'表型信息'" [nzDescription]="''"></nz-step>
+        <nz-step [nzTitle]="'附加信息'" [nzDescription]="''"></nz-step>
+    </nz-steps>
+    <div class="steps-content">
+        <nz-card  style="padding: 0 10%;" *ngIf="current===0">
+            <ng-template #title>
+                基本信息登记表
+            </ng-template>
+            <ng-template #body>
+                <app-basicinfo-form (submitFormEvent)="createBasicInfoForm($event)" [basicInfo]="currentBasicInfo"></app-basicinfo-form>
+            </ng-template>
+        </nz-card>
+        <nz-card style="width: 100%" *ngIf="current===1">
+        <ng-template #title>
+            表型信息录入
+        </ng-template>
+        <ng-template #body>
+            <app-phenotype-tree></app-phenotype-tree>
+        </ng-template>
+        </nz-card>
+        <nz-card style="padding: 0 10%;" *ngIf="current===2">
+            <ng-template #title>
+                附加信息登记
+            </ng-template>
+            <ng-template #body>
+                <app-addtioninfo-form></app-addtioninfo-form>
+            </ng-template>
+        </nz-card>
+    </div>
+    <div class="steps-action">
+        <button nz-button [nzType]="'default'" (click)="preContent()" *ngIf="current > 0">上一页</button>
+        <button nz-button [nzType]="'default'" (click)="nextContent()" *ngIf="current < 2">下一页</button>
+        <button nz-button [nzType]="'primary'" (click)="contentDone()" *ngIf="current === 2">完成</button>
+    </div>
+    
+</div>

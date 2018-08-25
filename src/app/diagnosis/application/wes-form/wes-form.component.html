@@ -1,0 +1,156 @@
+<form>
+  <div id='first_part'>
+    <b>基本信息</b>
+    <div class='form-row'>
+      <div class='form-group col-md-row'>
+        <label for="" class='col-md-3 col-md-label'> 姓&nbsp; &nbsp;名:</label>
+        <div>
+          <input type="text" class="form-control" placeholder="姓名">
+        </div>
+      </div>
+      <div class="form-group col-md row">
+        <label for="" class="col-md-3 col-form-label">性&nbsp; &nbsp;别:</label>
+        <label class="col-form-label">
+          <input type="radio">
+          <span>男 &nbsp; &nbsp; &nbsp;</span>
+        </label>
+        <label class="col-form-label">
+          <input type="radio">
+          <span>女</span>
+        </label>
+      </div>
+      <div class="form-group col-md row">
+        <label for="" class="col-md-4 col-form-label">出生日期:</label>
+        <div>
+          <input type="date" class="form-control" placeholder="出生日期">
+        </div>
+      </div>
+      <div class="form-group col-md row">
+        <label for="" class="col-md-3 col-form-label">住院号:</label>
+        <div>
+          <input type="text" class="form-control" placeholder="住院号">
+        </div>
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="form-group col-md row">
+        <label for="" class="col-md-3 col-form-label">采&nbsp; &nbsp;集:</label>
+        <div>
+          <input type="text" class="form-control" placeholder="父亲姓名">
+          <input type="text" class="form-control" placeholder="母亲姓名">
+        </div>
+      </div>
+      <div class="form-control col-md row">
+        <label for="" class="col-md-4 col-form-label">样本类型:</label>
+        <div>
+          <label for="" class="col-form-label">
+            <input type="checkbox">
+            <span>外周血(EDTA)</span>
+          </label>
+          <input type="text" class="form-control" placeholder="其他">
+        </div>
+      </div>
+      <div class="form-control col-md row">
+        <label for="" class="col-md-4 col-form-label">民 &nbsp; &nbsp;族:</label>
+        <div>
+          <input type="text" class="form-control" placeholder="民族">
+        </div>
+        <label for="" class="col-md-4 col-form-label">联系电话:</label>
+        <div>
+          <input type="text" class="form-control" placeholder="联系电话">
+        </div>
+      </div>
+      <div class="form-group col-md row">
+        <label for="" class="col-md-3 col-form-label">籍 贯:</label>
+        <div>
+          <input type="text" class="form-control" placeholder="籍贯">
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="second_part" class="mt-2">
+    <div class="form-row">
+      <div class="form-group col-md">
+        <label for="">
+          <b>主诉和现病史:</b>
+        </label>
+        <textarea name="diseaseDescription" id="diseaseDescription" rows="8" class="form-control"></textarea>
+      </div>
+      <div class="form-group col-md">
+        <label for="">
+          <b>家族史
+            <span class="color: #0000CD; font-size: 10px;">(含家系图、心脏病/猝死等重大疾病):</span>
+          </b>
+        </label>
+        <textarea name="familyDisease" id="familyDisease" rows="8" class="form-control"></textarea>
+      </div>
+    </div>
+  </div>
+
+  <div id="third_part" class="mt-2">
+    <b>孕前及围产情况:</b>
+    <div class="form-row mt-1">
+      <div class="form-group row col-md">
+        <label for="" class="col-md-3 col-form-label">孕 前</label>
+        <div>
+          <input type="text" class="form-control">
+        </div>
+      </div>
+      <div class="form-group col-md row">
+        <label for="" class="col-md-3 col-form-label">产 检</label>
+        <div>
+          <input type="text" class="form-control">
+        </div>
+      </div>
+      <div class="form-group col-md row">
+        <label for="" class="col-md-4 col-form-label">
+          <span style="color: #0000CD;">TORCH感染</span>
+        </label>
+        <div>
+          <input type="text" class="form-control">
+        </div>
+      </div>
+      <div class="form-group col-md row"></div>
+    </div>
+    <div class="form-row">
+      <div class="form-group col-md row">
+        <label for="" class="col-md-4 col-form-label">先兆流产</label>
+        <div>
+          <input type="text" class="form-control">
+        </div>
+      </div>
+      <div class="form-group col-md row">
+        <label for="" class="col-md-4 col-md-label">是否保胎</label>
+        <div class="col-md-8">
+          <label for="" class="col-form-label">
+            <input type="checkbox">
+          </label>
+        </div>
+        <label for="" class="col-md-3 col-form-label">孕 周:</label>
+        <div>
+          <input type="number" class="form-control" style="width: 165px;">
+        </div>
+        <label for="" class="col-md-3 col-form-label">周</label>
+      </div>
+      <div class="form-group col-md row">
+        <label for="" class="col-md-4 col-md-label">出生体重:</label>
+        <div>
+          <input type="number" class="form-control" style="width: 135px;">
+        </div>
+        <label class="col-md-3 col-md-label">kg</label>
+        <label class="col-md-4 col-form-label">身 长 :</label>
+        <div>
+          <input type="number" class="form-control" style="width: 135px;">
+        </div>
+        <label class="col-md-3 col-md-label">cm</label>
+      </div>
+      <div class="form-group col-md row">
+        <label for="" class="col-md-4 col-md-label">出生评分</label>
+        <div>
+          <input type="number" class="form-control">
+        </div>
+      </div>
+    </div>
+  </div>
+</form>
