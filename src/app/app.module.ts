@@ -13,29 +13,33 @@ import { LoginComponent } from './login/login.component';
 import { HomeComponent } from './home/home.component';
 import { LoginService } from './service/login.service';
 import { DiagnosisModule } from './diagnosis/diagnosis.module';
+import { UrlService } from './service/url.service';
+import { ResourceService } from './service/resource.service';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    LoginComponent,
-    HomeComponent
-  ],
-  imports: [
-    BrowserModule,
-    appRoutingModule,
-    FormsModule,
-    HttpClientModule,
+    declarations: [
+        AppComponent,
+        LoginComponent,
+        HomeComponent
+    ],
+    imports: [
+        BrowserModule,
+        appRoutingModule,
+        FormsModule,
+        HttpClientModule,
 
-    DiagnosisModule,
+        DiagnosisModule,
 
-    CarouselModule.forRoot(),
-    BsDropdownModule.forRoot(),
-    ModalModule.forRoot(),
-    NgZorroAntdModule.forRoot()
-  ],
-  providers: [
-    LoginService
-  ],
-  bootstrap: [AppComponent]
+        CarouselModule.forRoot(),
+        BsDropdownModule.forRoot(),
+        ModalModule.forRoot(),
+        NgZorroAntdModule.forRoot()
+    ],
+    providers: [
+        ResourceService,
+        UrlService,
+        LoginService
+    ],
+    bootstrap: [AppComponent]
 })
 export class AppModule { }

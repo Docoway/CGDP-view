@@ -30,7 +30,8 @@ export class UrlService {
                 this.port = response.port;
                 this.name = response.name;
                 this.protocol = response.protocol;
-                this.prefix = `${this.protocol}://${this.ip}:${this.port}/${this.name}`
+                this.prefix = `${this.protocol}://${this.ip}:${this.port}/${this.name}`;
+                //prefix : http://localhost:8080/cgdp-rest
             } else {
                 alert(`配置文件存在错误`)
             }
@@ -44,7 +45,14 @@ export class UrlService {
      * login url porperties
      */
     get URL_GET_FETCH_CAPTCHA() {
-        return this.prefix + '/captcha';
+        return this.prefix + '/login/captcha';
+    }
+
+    /**
+     * diagnosis/report url properties
+     */
+    get URL_UPLOAD_SELECTED_EXCEL() {
+        return this.prefix + '';
     }
 
 

@@ -1,5 +1,5 @@
 <div nz-row>
-    <div nz-col [nzXs]="24" [nzSm]="24" [nzMd]="24" [nzLg]="24" [nzXl]="24" style="padding: 1%;">
+    <div nz-col [nzXs]="24" [nzSm]="24" [nzMd]="24" [nzLg]="24" [nzXl]="24" style="padding: 2%;">
         <div id="title">
             <span class="titleclass">
                 <i class="anticon anticon-solution"></i>申请管理
@@ -58,7 +58,7 @@
     <span>编辑申请</span>
 </ng-template>
 <ng-template #editModalContent>
-    <app-basicinfo-form></app-basicinfo-form>
+    <app-basicinfo-form (submitFormEvent)="updateBasicInfo(value)" [basicInfo]="currentBasicInfo"></app-basicinfo-form>
 </ng-template>
 <ng-template #editModalFooter>
     <div>

@@ -10,6 +10,7 @@ import { DownloadComponent } from './download/download.component';
 import { ApplicationRoutingModule } from './application-routing.module';
 import { ApplicationComponent } from './application.component';
 import { DiagnosisCommonModule } from '../diagnosis-common/diagnosis-common.module';
+import { ReportService } from '../report/report.service';
 
 @NgModule({
     imports: [
@@ -25,6 +26,9 @@ import { DiagnosisCommonModule } from '../diagnosis-common/diagnosis-common.modu
         ManageComponent,
         FillInComponent, 
         DownloadComponent
+    ],
+    providers: [
+        ReportService
     ]
 })
 export class ApplicationModule { }

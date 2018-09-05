@@ -15,7 +15,7 @@
                 基本信息登记表
             </ng-template>
             <ng-template #body>
-                <app-basicinfo-form (submitFormEvent)="createBasicInfoForm($event)" [basicInfo]="currentBasicInfo"></app-basicinfo-form>
+                <app-basicinfo-form (submitFormEvent)="createBasicInfoForm(value)" [basicInfo]="currentBasicInfo"></app-basicinfo-form>
             </ng-template>
         </nz-card>
         <nz-card style="width: 100%" *ngIf="current===1">

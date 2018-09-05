@@ -41,8 +41,8 @@ export class FillInComponent implements OnInit {
         this.currentBasicInfo = new BasicForm();
     }
 
-    createBasicInfoForm($event) {
-        $event.preventDefault();
+    createBasicInfoForm(value) {
+        console.log(value);
     }
     
 }

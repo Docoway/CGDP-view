@@ -1,0 +1,34 @@
+<div class="form-group" *ngIf="!fileExisted">
+    <label><h5>解析医学全外数据表(Excel)</h5></label>
+    <input id="select-file-input"  class="form-control" type="file" (change)="fileUploadPreparing($event)" style="width: 0px;">
+    <label for="select-file-input" class="btn btn-secondary btn-sm">
+        <span style="cursor: pointer;">浏览文件...</span>
+    </label>
+</div>
+<div nz-row class="chosen_file_row" *ngIf="fileExisted">
+    <div nz-col [nzSm]="4" >
+        <img class="excel_icon" src="assets/images/diagnosis/report/reporting/excel.png">
+    </div>
+    <div nz-col [nzSm]="16" class="excel_name">
+        <span>{{selectedFileName}}</span>
+    </div>
+    <div nz-col [nzSm]="3" class="excel_cancel_icon">
+        <button nz-button [nzType]="'default'" [nzShape]="'circle'">
+            <span (click)="cancelSelectedFile()">
+                <i class="anticon anticon-close"></i>
+            </span>
+        </button>
+    </div>  
+</div>
+<div id="loadingStatus_div">
+    <div *ngIf="!fileUploading && !fileAnalyzing">
+        <span>文件上传准备中...</span>
+    </div>
+    <div class="mt-3" *ngIf="fileExisted && fileUploading">
+        <nz-spin [nzTip]="'文件正在上传中...'" [nzSpinning]="true"></nz-spin>
+    </div>
+    <div class="mt-3" *ngIf="fileAnalyzing">
+        <nz-spin [nzTip]="'文件正在解析中...'" [nzSpinning]="true"></nz-spin>
+    </div>
+</div>
+<button class="mt-4" nz-button [nzSize]="'large'" [nzType]="'primary'" [disabled]="!fileExisted || fileUploading" [nzLoading]="isLoadingOne" (click)="uploadSelectedFile('patientID')">&nbsp;&nbsp;上传&nbsp;&nbsp;</button>

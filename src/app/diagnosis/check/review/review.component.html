@@ -1,0 +1,118 @@
+<div id="report_review_div">
+    <h4><b>报告审查</b></h4>
+    <!-- <div class="mt-3">
+        <nz-input [nzType]="'search'" [nzPlaceHolder]="'门诊号/姓名'" [nzSize]="'large'" [(ngModel)]="searchInputValue" style="width: 200px;"></nz-input>
+    </div> -->
+    <div class="mt-3 form-group row">
+        <div class="col-sm-2">
+            <input type="text" class="form-control" placeholder="门诊号/姓名" [(ngModel)]="searchInputValue">
+        </div>
+        <button type="button" class="btn btn-primary">
+            <span>
+                <i class="anticon anticon-search"></i>检索
+            </span>
+        </button>
+    </div>
+    <div class="mt-3">
+        <nz-card>
+            <ng-template #title>
+                <h5 class="mt-1"><b>报告概览</b></h5>
+            </ng-template>
+            <ng-template #body>
+                <div style="background: #ECECEC; padding: 30px;">
+                    <div nz-row [nzGutter]="8">
+                        <div nz-col [nzSpan]="6" *ngFor="let item of [0,1,2,3]">
+                            <nz-card>
+                                <ng-template #title>
+                                    <b>patientID1</b>
+                                </ng-template>
+                                <ng-template #body>
+                                    <div class="patientImage_class">
+                                        <img src="assets/images/diagnosis/check/review/fakePatient.jpg">
+                                    </div>
+                                    <div class="mt-2">
+                                        <span><b>姓名：</b>&nbsp;&nbsp; 病人姓名</span>
+                                        <p><b>状态：</b>&nbsp;&nbsp; 待报告...</p>
+                                    </div>
+                                    <div>
+                                        <nz-progress [ngModel]="33" [nzType]="'line'" [nzStatus]="'active'"></nz-progress>
+                                    </div>
+                                    <div class="mt-2">
+                                        <button nz-button [nzType]="'primary'" (click)="showReportModalForTemplate(reportTitle, reportContent, reportFooter, patientID)">
+                                            <i class="anticon anticon-eye-o"></i><span>查看</span>
+                                        </button>
+                                        <nz-popconfirm nzTitle="确定删除报告吗？" (nzOnConfirm)="deleteReport()">
+                                            <button nz-button nz-popconfirm [nzType]="'danger'">
+                                                <i class="anticon anticon-delete"></i><span>删除</span>
+                                            </button>
+                                        </nz-popconfirm>
+                                    </div>
+                                </ng-template>
+                            </nz-card>
+                        </div>
+                        <div nz-col [nzSpan]="8" class="mt-5" *ngFor="let item of [0,1,2]">
+                            <nz-card>
+                                <ng-template #title>
+                                    <b>patientID2</b>
+                                </ng-template>
+                                <ng-template #body>
+                                    <div nz-row>
+                                        <div nz-col [nzSpan]="12">
+                                            <nz-progress [ngModel]="66.6" [nzType]="'circle'"></nz-progress>
+                                        </div>
+                                        <div nz-col [nzSpan]="12">
+                                            <div class="patientImage_small_class">
+                                                <img src="assets/images/diagnosis/check/review/fakePatient.jpg">
+                                            </div>
+                                            <div class="mt-2">
+                                                <span><b>姓名：</b>&nbsp;&nbsp; 病人姓名</span>
+                                                <p><b>状态：</b>&nbsp;&nbsp; 待审查...</p>
+                                            </div>
+                                            <div class="mt-2">
+                                                <button nz-button [nzType]="'primary'">
+                                                    <i class="anticon anticon-eye-o"></i><span>查看</span>
+                                                </button>
+                                                <button nz-button [nzType]="'danger'">
+                                                    <i class="anticon anticon-delete"></i><span>删除</span>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>  
+                                </ng-template>
+                            </nz-card>
+                        </div>
+                    </div>
+                </div>
+            </ng-template>
+        </nz-card>
+    </div>
+</div>
+
+<!-- 基因检测报告弹出框 -->
+<ng-template #reportTitle>
+
+</ng-template>
+<ng-template #reportContent>
+    <div class="reportModal_class">
+        <app-diagnosis-report></app-diagnosis-report>
+    </div>
+</ng-template>
+<ng-template #reportFooter></ng-template>
+
+
+<!-- <nz-modal
+    class="reportModal_class"
+    [(nzVisible)]="isReportModalVisible"
+    [nzTitle]="'标题'"
+    [nzClosable]="true"
+    [nzWidth]="1200"
+    [nzContent]="modalContent"
+    [nzOkText]="'确定'"
+    [nzCancelText]="'取消'"
+    [nzMaskClosable]="false"
+    (nzOnCancel)="handleCancel($event)"
+    (nzOnOk)="handleOk($event)">
+    <ng-template #modalContent>
+        <app-diagnosis-report></app-diagnosis-report>
+    </ng-template>
+</nz-modal> -->

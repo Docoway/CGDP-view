@@ -1,0 +1,225 @@
+<div id="addExcel_div" *ngIf="uploadPreparation">
+    <nz-card [nzBordered]="true" [nzNoHovering]="false" [nzLoading]="false" style="width: 600px;">
+        <ng-template #title>
+            <h5>patientID</h5>
+        </ng-template> 
+        <ng-template #body>
+            <div class="form-group" *ngIf="!fileExisted">
+                <label><h5>解析医学全外数据表(Excel)</h5></label>
+                <input id="select-file-input"  class="form-control" type="file" (change)="fileUploadPreparing($event)" style="width: 0px;">
+                <label for="select-file-input" class="btn btn-secondary btn-sm">
+                    <span style="cursor: pointer;">浏览文件...</span>
+                </label>
+            </div>
+            <div nz-row class="chosen_file_row" *ngIf="fileExisted">
+                <div nz-col [nzSm]="4" >
+                    <img class="excel_icon" src="assets/images/diagnosis/report/reporting/excel.png">
+                </div>
+                <div nz-col [nzSm]="16" class="excel_name">
+                    <span>{{selectedFileName}}</span>
+                </div>
+                <div nz-col [nzSm]="3" class="excel_cancel_icon">
+                    <button nz-button [nzType]="'default'" [nzShape]="'circle'">
+                        <span (click)="cancelSelectedFile()">
+                            <i class="anticon anticon-close"></i>
+                        </span>
+                    </button>
+                </div>  
+            </div>
+            <div id="loadingStatus_div">
+                <div *ngIf="!fileUploading && !fileAnalyzing">
+                    <span>文件上传准备中...</span>
+                </div>
+                <div class="mt-3" *ngIf="fileExisted && fileUploading">
+                    <nz-spin [nzTip]="'文件正在上传中...'" [nzSpinning]="true"></nz-spin>
+                </div>
+                <div class="mt-3" *ngIf="fileAnalyzing">
+                    <nz-spin [nzTip]="'文件正在解析中...'" [nzSpinning]="true"></nz-spin>
+                </div>
+            </div>
+            <button class="mt-4" nz-button [nzSize]="'large'" [nzType]="'primary'" [disabled]="!fileExisted || fileUploading" [nzLoading]="isLoadingOne" (click)="uploadSelectedFile('patientID')">&nbsp;&nbsp;上传&nbsp;&nbsp;</button>
+        </ng-template>
+    </nz-card>
+</div>
+
+<div *ngIf="!uploadPreparation">
+    <div id="excelItem_div">
+        <h5 class="mb-3"><b>医学全外数据</b></h5>
+        <div id="excelItem_div_options">
+            <button nz-button [nzType]="'primary'" [nzSize]="'large'" (click)="showOptionsModal()">
+                <span><i class="anticon anticon-filter"></i>筛选条件</span>
+            </button>
+            <button nz-button [nzType]="'primary'" [nzSize]="'large'" (click)="showUploadExcelModal(uploadExcelModalTitle, uploadExcelModalContent, uploadExcelModalFooter)">
+                <span><i class="anticon anticon-file-add"></i>选择案例</span>
+            </button>
+        </div>
+        <div id="excelItemTable" class="mt-3">
+            <app-excelinfo-form></app-excelinfo-form>
+        </div>
+    </div>
+    <div id="omimReference_div">
+        <h5 class="mt-3 mb-3"><b>Omim支持</b></h5>
+        <div style="background: #ececec; padding: 30px;">
+            <div nz-row [nzGutter]="8">
+                <div nz-col [nzSpan]="12">
+                    <nz-card [nzBordered]="true" [nzNoHovering]="false" [nzLoading]="_omimDescLoading">
+                        <ng-template #title>
+                            {{selectedGene}} description in omim:
+                        </ng-template>
+                        <ng-template #body>
+                            <nz-input [nzType]="'textarea'" [nzRows]="'10'" [nzReadonly]="true" [(ngModel)]="omimDescription"></nz-input>
+                        </ng-template>
+                    </nz-card>
+                </div>
+                <div nz-col [nzSpan]="12">
+                    <nz-card>
+                        <ng-template #title>
+                            检测解释：
+                        </ng-template>
+                        <ng-template #body>
+                            <nz-input [nzType]="'textarea'" [nzRows]="'10'"></nz-input>
+                        </ng-template>
+                    </nz-card>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- 全外医学数据表筛选条件弹出框 -->
+<nz-modal
+    [(nzVisible)]="isOptionsModalVisible"
+    [nzWidth]="1000"
+    [nzTitle]="modalTitle"
+    [nzContent]="modalContent"
+    [nzFooter]="modalFooter"
+    [nzClosable]="true"
+    [nzMaskClosable]="false"
+    (nzOnCancel)="handleCancel()">
+    <ng-template #modalTitle>
+        <h5><b>全外医学数据筛选</b></h5>
+    </ng-template>
+    <ng-template #modalContent>
+        <form nz-form [formGroup]="filterValidateForm" (ngSubmit)="submitFilterForm($event, filterValidateForm.value)" nzLayout="horizontal">
+            <div nz-row [nzGutter]="40">
+                <div nz-col [nzSpan]="8" *ngFor="let item of filterFormControlArray; let i = index" [style.display]="item.show?'block':'none'">
+                    <div nz-form-item nz-row>
+                        <div nz-form-label nz-col [nzSm]="10" [nzXs]="24">
+                            <label>{{item.title}}</label>
+                        </div>
+                        <div *ngIf="i < 9">
+                            <div nz-form-control>
+                                <div nz-col [nzSm]="6" [nzXs]="11">
+                                    <div nz-form-item nz-row>
+                                        <div>
+                                            <div nz-form-control>
+                                                <nz-input [nzType]="'number'" [nzSize]="'large'" [formControlName]="'min-' + item.title"></nz-input>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div nz-col [nzSpan]="2">
+                                    <p nz-form-split>-</p>
+                                </div>
+                                <div nz-col [nzSm]="6" [nzXs]="11">
+                                    <div nz-form-item nz-row>
+                                        <div>
+                                            <div nz-form-control>
+                                                <nz-input [nzType]="'number'" [nzSize]="'large'" [formControlName]="'max-' + item.title"></nz-input>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div *ngIf="i >= 9 && item.title == 'ExonicFunc.refGene'">
+                            <div nz-form-control nz-col [nzSm]="14" [nzXs]="24">
+                                <nz-select [formControlName]="item.title" [nzSize]="'large'">
+                                    <nz-option [nzLabel]="'synonymous SNV'" [nzValue]="'synonymous SNV'"></nz-option>
+                                    <nz-option [nzLabel]="'nonsynonymous SNV'" [nzValue]="'nonsynonymous SNV'"></nz-option>  
+                                </nz-select>
+                            </div>
+                        </div>
+                        <div *ngIf="i >= 9 && item.title == 'BH'">
+                            <div nz-form-control nz-col [nzSm]="14" [nzXs]="24">
+                                <nz-select [formControlName]="item.title" [nzSize]="'large'">
+                                    <nz-option [nzLabel]="'PASS'" [nzValue]="'PASS'"></nz-option>
+                                    <nz-option [nzLabel]="'LowQualFilter'" [nzValue]="'LowQualFilter'"></nz-option>
+                                </nz-select>
+                                
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div nz-row>
+                <div nz-col [nzSpan]="24" style="text-align: right">
+                    <a (click)="toggleCollapse()">
+                        Collaspe
+                        <i class="anticon" [class.anticon-down]="isCollapse" [class.anticon-up]="!isCollapse"></i>
+                    </a>
+                </div>
+            </div>
+            
+            <div nz-row class="mt-3">
+                <div nz-col [nzSpan]="24" style="text-align: right">
+                    <button nz-button [nzType]="'default'" [nzType]="'large'" (click)="saveOptions()" [disabled]="isSaved">保存</button>
+                    <button nz-button [nzType]="'primary'" [nzSize]="'large'" [nzLoading]="isConfirmloading" (click)="filterTable()">确定</button>
+                </div>
+            </div>
+            
+        </form>
+    </ng-template>
+    <ng-template #modalFooter>
+        
+    </ng-template>
+</nz-modal>
+
+
+<!-- Excel文件上传解析弹出框 -->
+<ng-template #uploadExcelModalTitle>
+    <h5><b>patientID</b></h5>
+</ng-template>
+<ng-template #uploadExcelModalContent>
+    <div style="text-align: center;">   
+        <div class="form-group" *ngIf="!fileExisted">
+            <label><h5>解析医学全外数据表(Excel)</h5></label>
+            <input id="select-file-input"  class="form-control" type="file" (change)="fileUploadPreparing($event)" style="width: 0px;">
+            <label for="select-file-input" class="btn btn-secondary btn-sm">
+                <span style="cursor: pointer;">浏览文件...</span>
+            </label>
+        </div>
+        <div nz-row class="chosen_file_row" *ngIf="fileExisted">
+            <div nz-col [nzSm]="4" >
+                <img class="excel_icon" src="assets/images/diagnosis/report/reporting/excel.png">
+            </div>
+            <div nz-col [nzSm]="16" class="excel_name">
+                <span>{{selectedFileName}}</span>
+            </div>
+            <div nz-col [nzSm]="3" class="excel_cancel_icon">
+                <button nz-button [nzType]="'default'" [nzShape]="'circle'">
+                    <span (click)="cancelSelectedFile()">
+                        <i class="anticon anticon-close"></i>
+                    </span>
+                </button>
+            </div>  
+        </div>
+        <div id="loadingStatus_div">
+            <div *ngIf="!fileUploading && !fileAnalyzing">
+                <span>文件上传准备中...</span>
+            </div>
+            <div class="mt-3" *ngIf="fileExisted && fileUploading">
+                <nz-spin [nzTip]="'文件正在上传中...'" [nzSpinning]="true"></nz-spin>
+            </div>
+            <div class="mt-3" *ngIf="fileAnalyzing">
+                <nz-spin [nzTip]="'文件正在解析中...'" [nzSpinning]="true"></nz-spin>
+            </div>
+        </div>
+        <button class="mt-4" nz-button [nzSize]="'large'" [nzType]="'primary'" [disabled]="!fileExisted || fileUploading" [nzLoading]="isLoadingOne" (click)="uploadSelectedFile('patientID')">&nbsp;&nbsp;上传&nbsp;&nbsp;</button>
+    </div>
+</ng-template>
+<ng-template #uploadExcelModalFooter></ng-template>
+
+
+

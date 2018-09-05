@@ -8,7 +8,7 @@ import { DownloadComponent } from './download/download.component';
 
 const routes: Routes = [
     {
-        path: '',
+        path: '',                //由于loadChildren已经在上层routing配置过  不需要application  不然将匹配到application/application/
         component: ApplicationComponent,
         children: [
             {

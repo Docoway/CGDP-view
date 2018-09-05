@@ -10,6 +10,7 @@ import { DiagnosisRoutingModule } from './diagnosis-routing.module';
 import { DiagnosisCommonModule } from './diagnosis-common/diagnosis-common.module';
 
 
+
 @NgModule({
     declarations:[
         DiagnosisComponent,

@@ -1,3 +1,14 @@
-<p>
-  check works!
-</p>
+<nz-layout>
+    <nz-sider [nzWidth]="70">
+        <ul nz-menu [nzMode]="'inline'">
+            <li *ngFor="let menuItem of menuList" (click)="selectMenuItem(menuItem)" [style.background-color]="menuItem.selected? 'whitesmoke':''">
+                <nz-tooltip [nzTitle]="menuItem.label" [nzPlacement]="'right'">
+                    <span nz-tooltip><img [src]="menuItem.imageUrl"></span>
+                </nz-tooltip>
+            </li>
+        </ul>
+    </nz-sider>
+    <nz-content style="min-height: 800px; background-color: #fff;">
+        <router-outlet></router-outlet>
+    </nz-content>
+</nz-layout>

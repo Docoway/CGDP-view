@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, NavigationEnd } from '@angular/router';
 
 @Component({
     selector: 'app-diagnosis',
@@ -41,21 +41,29 @@ export class DiagnosisComponent implements OnInit {
     constructor(
         private router: Router
     ) {
-        //subscribe router state change
-        router.events.subscribe((event: any) => {
-            if(event.url !== undefined) {
-                for(let item of this.diagnosisNavResources) {
-                    if(event.url.includes(item.routerLink)) {
-                        item.selected = true;
-                    } else {
-                        item.selected = false;
-                    }
-                }
-            }
-        });
+        this.setInitialNav(router.url);
+        console.log("router url: " + router.url);
      }
 
     ngOnInit() {
+        //subscribe router state change
+        //使用router.events来监听路由变化
+        this.router.events
+            .filter(event => event instanceof NavigationEnd)
+            .subscribe((event: NavigationEnd) => {
+                this.setInitialNav(event.urlAfterRedirects);
+            })
+    }
+
+    //set the initial selected nav
+    setInitialNav(url: string) {
+        for(let item of this.diagnosisNavResources) {
+            if(url.includes(item.routerLink)) {
+                item.selected = true;
+            } else {
+                item.selected = false;
+            }
+        }
     }
 
     selectNav(diagnosisNavResource: any) {
