@@ -1,0 +1,139 @@
+<form nz-form [nzLayout]="'horizontal'" [formGroup]="basicValidateForm" (ngSubmit)="submitBasicForm($event, basicValidateForm.value)">
+    <nz-form-item>
+        <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired>门诊号</nz-form-label>
+        <nz-form-control [nzSm]="6" [nzXs]="24" nzHasFeedback>
+            <input type="text" nz-input formControlName="patientID">
+            <nz-form-explain *ngIf="basicValidateForm.get('patientID').dirty && basicValidateForm.get('patientID').errors || basicValidateForm.get('patientID').pending">
+                <ng-container *ngIf="basicValidateForm.get('patientID').hasError('required')">
+                    请输入住院号
+                </ng-container>
+                <ng-container *ngIf="basicValidateForm.get('patientID').pending">
+                    Validating...
+                </ng-container>
+            </nz-form-explain>
+        </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+        <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired>姓名</nz-form-label>
+        <nz-form-control [nzSm]="6" [nzXs]="24" nzHasFeedback>
+            <input type="text" nz-input formControlName="name">
+            <nz-form-explain *ngIf="basicValidateForm.get('name').dirty && basicValidateForm.get('name').errors">
+                <ng-container *ngIf="basicValidateForm.get('name').hasError('required')">
+                    请输入姓名
+                </ng-container>
+                <ng-container *ngIf="basicValidateForm.get('name').hasError('minwarn')">姓名长度不能小于2</ng-container>
+                <ng-container *ngIf="basicValidateForm.get('name').hasError('maxwarn')">姓名长度不能大于12</ng-container>
+                <ng-container *ngIf="basicValidateForm.get('name').hasError('expired')">请输入正确的姓名</ng-container>               
+            </nz-form-explain>
+        </nz-form-control>
+
+        <nz-form-label [nzSm]="3" [nzXs]="24" nzRequired>性别</nz-form-label>
+        <nz-form-control [nzSm]="6" [nzXs]="24">
+            <nz-radio-group formControlName="gender">
+                <label nz-radio nzValue="男">男</label>
+                <label nz-radio nzValue="女">女</label>
+            </nz-radio-group>
+        </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+        <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired>出生日期</nz-form-label>
+        <nz-form-control [nzSm]="6" [nzXs]="24">
+            <nz-date-picker formControlName="birthDay"></nz-date-picker>
+            <nz-form-explain *ngIf="basicValidateForm.get('birthDay').dirty && basicValidateForm.get('birthDay').errors">
+                <ng-container *ngIf="basicValidateForm.get('birthDay').hasError('expired')">
+                    出生日期必须早于今天
+                </ng-container>
+            </nz-form-explain>
+        </nz-form-control>
+        <nz-form-label [nzSm]="3" [nzXs]="24" nzRequired>民族</nz-form-label>
+        <nz-form-control [nzSm]="6" [nzXs]="24">
+            <nz-select formControlName="nationality" [nzShowSearch]="true">
+                <nz-option
+                  *ngFor="let nation of nationList"
+                  [nzLabel]="nation.nationName"
+                  [nzValue]="nation.nationCode">
+                </nz-option>    
+            </nz-select>
+        </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+        <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired>联系人关系</nz-form-label>
+        <nz-form-control [nzSm]="6" [nzXs]="24">
+            <nz-select formControlName="relationship">
+                <nz-option
+                  *ngFor="let relationshipOption of relationshipOptions"
+                  [nzLabel]="relationshipOption.relationshipType"
+                  [nzValue]="relationshipOption.relationshipCode">
+                </nz-option>     
+            </nz-select>
+        </nz-form-control>
+
+        <nz-form-label [nzSm]="3" [nzXs]="24" nzRequired>联系人姓名</nz-form-label>
+        <nz-form-control [nzSm]="6" [nzXs]="24" nzHasFeedback>
+            <input type="text" nz-input formControlName="contactName">
+            <nz-form-explain *ngIf="basicValidateForm.get('contactName').dirty && basicValidateForm.get('contactName').errors">
+                <ng-container *ngIf="basicValidateForm.get('contactName').hasError('required')">
+                    请输入联系人姓名
+                </ng-container>
+                <ng-container *ngIf="basicValidateForm.get('contactName').hasError('minwarn')">
+                    姓名长度不能小于2
+                </ng-container>
+                <ng-container *ngIf="basicValidateForm.get('contactName').hasError('maxwarn')">
+                    姓名长度不能大于12
+                </ng-container>
+                <ng-container *ngIf="basicValidateForm.get('contactName').hasError('expired')">
+                    请输入正确的姓名
+                </ng-container>
+            </nz-form-explain>
+        </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+        <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired>联系电话</nz-form-label>
+        <nz-form-control [nzSm]="6" [nzXs]="24" nzHasFeedback>
+            <input type="number" nz-input formControlName="phoneNumber">
+            <nz-form-explain *ngIf="basicValidateForm.get('phoneNumber').dirty && basicValidateForm.get('phoneNumber').errors">
+                <ng-container *ngIf="basicValidateForm.get('phoneNumber').hasError('required')">
+                    号码不能为空
+                </ng-container>
+                <ng-container *ngIf="basicValidateForm.get('phoneNumber').hasError('expired')">
+                    请输入正确的电话号码
+                </ng-container>
+            </nz-form-explain>
+        </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+        <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired>样本类型</nz-form-label>
+        <nz-form-control [nzSm]="6" [nzXs]="24">
+            <nz-select formControlName="sampleSelect">
+                <nz-option
+                  *ngFor="let sampleTypeSelect of sampleTypeSelectList"
+                  [nzLabel]="sampleTypeSelect.typeLabel"
+                  [nzValue]="sampleTypeSelect.typeCode">
+                </nz-option>
+            </nz-select>
+        </nz-form-control>
+        <div nz-col [nzSm]="1" [nzXs]="0"></div>
+        <nz-form-control [nzSm]="6" [nzXs]="24" nzHasFeedback *ngIf="basicValidateForm.get('sampleSelect').value == '1'">
+            <input nz-input type="text" formControlName="sampleInput" placeHolder="其它样本类型">
+            <nz-form-explain *ngIf="basicValidateForm.get('sampleInput').dirty && basicValidateForm.get('sampleInput').errors">
+                <ng-container *ngIf="basicValidateForm.get('sampleInput').hasError('required')">请确认样本类型</ng-container>
+            </nz-form-explain>
+        </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+        <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired>籍贯</nz-form-label>
+        <nz-form-control [nzSm]="9" [nzXs]="24" style="line-height: 21px;">
+            <app-cn-city-select [selected]="basicInfo.birthPlace" (result)="citySelect($event)"></app-cn-city-select>
+        </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+        <nz-form-label [nzSm]="6" [nzXs]="24">家庭地址</nz-form-label>
+        <nz-form-control [nzSm]="12" [nzXs]="24" nzHasFeedback>
+            <input type="text" nz-input formControlName="address">
+        </nz-form-control>
+    </nz-form-item>
+
+    <!-- 想好这个button放在哪里比较好
+    <button nz-button [nzType]="'primaty'" [nzSize]="'large'" [disabled]="!basicInfoForm.valid">确定</button>
+    -->
+</form>

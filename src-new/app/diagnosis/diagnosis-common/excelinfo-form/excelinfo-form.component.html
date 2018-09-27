@@ -1,0 +1,23 @@
+<div style="width: 1200px; overflow: auto;">
+    <nz-table #nzTable [nzData]="excelInfoDataSource" [nzSize]="'default'" [nzPageSize]="10" [nzShowPagination]="false" [nzLoading]="_loading" [nzScroll]="{y: 600}">
+        <thead (nzSortChange)="sort($event)">
+            <tr>
+                <th nzShowSort nzSortKey="Chr" *ngFor="let theadItem of excelTableHeadArray">
+                    <span>{{theadItem}}</span>
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+                <tr *ngFor="let data of nzTable.data">
+                    <td *ngFor="let item of excelTableHeadArray">{{data[item]}}</td>
+                </tr>
+        </tbody>
+    </nz-table>            
+</div>
+
+<!-- <div style="max-width: 1200px;">
+    <hot-table [data]="dataset" [colHeaders]="true" [rowHeaders]="true" [width]="250" [height]="200" [colWidths]="100" [rowHeights]="30"
+    [manualColumnResize]="true"
+    
+    ></hot-table>
+</div> -->

@@ -1,0 +1,36 @@
+<div style="padding: 2%;">
+    <div class="titleclass">
+        <i class="anticon anticon-select"></i>申请选取
+    </div>
+    <div class="mt-3 row">
+        <div class="col-md-2 mr-3">
+            <nz-input-group nzSuffixIcon="anticon anticon-search" nzSize="large">
+                <input type="text" nz-input placeholder="字段检索" [(ngModel)]="searchTerm" (ngModelChange)="selectApplications()">
+            </nz-input-group>
+        </div>
+    </div>
+    <div class="mt-4" style="width: 50%;">
+        <nz-table #nzApplicationSelectTable [nzData]="applicationListData" nzSize="middle" [nzPageSize]="10" [nzBordered]="false" [nzShowPagination]="true">
+            <thead (nzSortChange)="sortTable($event)" nzSingleSort>
+                <tr>
+                    <th [nzShowSort]="sortArr.indexOf(i) !== -1" [nzSortKey]="theadArrEng[i]" *ngFor="let theadItem of theadArr; let i = index;">{{theadItem}}</th>
+                    <th>操作</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let data of nzApplicationSelectTable.data">
+                    <td *ngFor="let theadItem of theadArrEng">{{data[theadItem]}}</td>
+                    <td>
+                        <nz-upload [(nzFileList)]="fileList" [nzBeforeUpload]="beforeUpload" [nzAccept]="'.xls, xlsx'" [nzLimit]="1">
+                          <button nz-button>
+                            <i class="anticon anticon-upload"></i>
+                            <span>上传Excel</span>
+                          </button>
+                        </nz-upload>    
+                    </td>
+                </tr>
+            </tbody>
+        </nz-table>
+    </div>
+</div>
+<div id="reporting_div" *ngIf="!uploadPreparation"></div>

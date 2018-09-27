@@ -1,0 +1,73 @@
+<div nz-row>
+    <div nz-col [nzSpan]="24" style="padding: 2%;">
+        <div id="title">
+            <span class="titleclass">
+                <i class="anticon anticon-folder mr-1"></i>报告管理
+            </span>
+        </div>
+        <div class="mt-3 form-group row">
+            <div class="col-sm-2 mr-3">
+                <nz-input-group nzSuffixIcon="anticon anticon-search" nzSize="large">
+                    <input type="text" nz-input placeholder="字段检索" [(ngModel)]="searchTerm" (ngModelChange)="searchReports()">
+                </nz-input-group>
+            </div>
+            <button type="button" class="btn btn-primary">
+                <span>
+                    <i class="anticon anticon-search"></i>筛选
+                </span>
+            </button>
+        </div>
+        <div id="reportList_table" class="mt-4">
+            <nz-table #nzTable [nzData]="reportListData" nzSize="middle" [nzPageSize]="10" [nzLoading]="_loading" [nzShowPagination]="_pagination">
+                <thead (nzSortChange)="sortReport($event)" nzSingleSort>
+                    <tr>
+                        <th [nzShowSort]="sortArr.indexOf(i) !== -1" [nzSortKey]="reportTheadArrEng[i]" [nzShowFilter]="i == 8" [nzFilters]="statusList" (nzFilterChange)="filterReport($event, selectedStatus)" *ngFor="let theadItem of reportTheadArr; let i = index;">{{theadItem}}</th>
+                        <th>操作</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let data of nzTable.data">
+                        <td *ngFor="let theadItem of reportTheadArrEng">{{data[theadItem]}}</td>
+                        <!-- <td>
+                            <nz-popover [nzTitle]="'Description'" [nzTrigger]="'hover'" [nzPlacement]="'top'">
+                                <a nz-popover>{{data['diagnosis_conclusion'].slice(0,15)}}...</a>
+                                <ng-template #nzTemplate>
+                                    <div>
+                                        <p>{{data['diagnosis_conclusion']}}</p>
+                                    </div>
+                                </ng-template>
+                            </nz-popover>
+                            
+                        </td> -->
+                        <td>
+                            <nz-tooltip [nzTitle]="'编辑'" [nzPlacement]="'top'">
+                                <button nz-tooltip nz-button [nzType]="'primary'" [nzShape]="'circle'" (click)="showReportModal(reportTitle,reportContent,reportFooter)">
+                                    <i class="anticon anticon-edit"></i>
+                                </button>
+                            </nz-tooltip>
+                            <nz-divider nzType="vertical"></nz-divider>
+                            <nz-popconfirm nzTitle="确定删除本报告吗？" (nzOnConfirm)="deleteReport(data)" [nzPlacement]="'top'">
+                              <nz-tooltip [nzTitle]="'删除'" [nzPlacement]="'top'">
+                                  <button nz-button nz-popconfirm nz-tooltip [nzType]="'primary'" [nzShape]="'circle'">
+                                      <i class="anticon anticon-delete"></i>
+                                  </button>
+                              </nz-tooltip>
+                            </nz-popconfirm>
+                            <!-- <nz-divider nzType="vertical"></nz-divider>
+                            <button nz-button nzType="primary" [disabled]="data['statusCode'] < 3">
+                                <i class="anticon anticon-eye-o"></i>查看报告
+                            </button> -->
+                        </td>
+                    </tr>
+                </tbody>
+            </nz-table>
+        </div>
+    </div>
+</div>
+
+<!-- 修改报告弹窗 -->
+<ng-template #reportTitle></ng-template>
+<ng-template #reportContent>
+    <app-diagnosis-report></app-diagnosis-report>
+</ng-template>
+<ng-template #reportFooter></ng-template>

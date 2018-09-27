@@ -1,0 +1,39 @@
+carousel>img {
+    display: block;
+    width: 100%;
+}
+
+#home-nav-div {
+    display: flex;
+    height: 120px;
+    background-color: #5F9EA0;
+}
+
+.home-nav-item {
+    display: flex;
+    margin-left: auto;
+}
+
+.home-nav-item a>img {
+    width: 100px;
+    height: 100px;
+    margin-top: 10px;
+}
+
+.content {
+    width: 200px;
+    margin-top: 10px;
+}
+
+.content p{
+    font-size: 15px;
+    color: whitesmoke;
+}
+
+.content>p:first-child {
+    font-weight: 700;
+    font-family: "Arial";
+    font-size: 18px;
+    padding-top: 8px;
+
+}

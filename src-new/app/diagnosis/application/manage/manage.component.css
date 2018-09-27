@@ -1,0 +1,29 @@
+.titleclass {
+    font-size: 24px;
+    font-weight: 600;
+}
+
+:host ::ng-deep .ant-table-content {
+    border: solid 1px rgb(232, 232, 232);
+}
+
+:host ::ng-deep .ant-table-thead>tr>th {
+    font-size: 16px;
+    font-family: sans-serif;
+    background: #f7f7f7;
+    font-weight: 600;
+    text-align: center;
+}
+
+:host ::ng-deep .ant-table-tbody>tr>td {
+    font-size: 14px;
+    font-weight: 500;
+    font-family: sans-serif;
+    text-align: center;
+    word-break: break-all;
+}
+
+/* thead height */
+:host ::ng-deep .ant-table-middle>.ant-table-content>.ant-table-body>table>.ant-table-thead>tr>th {
+    padding: 15px 8px;
+}

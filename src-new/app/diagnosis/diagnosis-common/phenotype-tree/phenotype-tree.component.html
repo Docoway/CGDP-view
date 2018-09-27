@@ -1,0 +1,72 @@
+<div id="clinicalSynopsis_div" nz-row [nzGutter]="8" style="background-color: #ECECEC;">
+        <div nz-col [nzSpan]="6">
+            <nz-card>
+                <ng-template #title>
+                    clinicalSynopses
+                </ng-template>
+                <ng-template #body>
+                    <ul nz-menu [nzMode]="'inline'">
+                        <li nz-submenu *ngFor="let clinicalSynopsis of clinicalSynopses" [(nzOpen)]="clinicalSynopsis.open" (nzOpenChange)="openChange(clinicalSynopsis)">
+                            <span title><i class="anticon anticon-appstore"></i>{{clinicalSynopsis.title}}</span>
+                            <ul>
+                                <li nz-menu-item *ngFor="let synopsesType of clinicalSynopsis.subtitle" (click)="selectCSItem(clinicalSynopsis.title, synopsesType.item)">{{synopsesType.item}}</li>
+                            </ul>
+                        </li>
+                    </ul>
+                </ng-template>
+            </nz-card>
+        </div>
+        <div nz-col [nzSpan]="8">
+            <nz-card>
+                <ng-template #title>
+                    phenotypes
+                </ng-template>
+                <ng-template #body>
+                    <div class="button btn-group">
+                        <div class="input-group">
+                            <input type="text" class="form-control" placeholder="筛选表型" [(ngModel)]="searchTerm" (ngModelChange)="searchPhenotype()">
+                            <span class="input-group-btn">
+                                <button class="btn btn-default" type="button">
+                                    <i class="anticon anticon-filter"></i>筛选
+                                </button>
+                            </span>
+                        </div>
+                    </div>
+                    <nz-table #nzPhenotypeItemTable [nzData]="eyesItem" [nzPageSize]="20" [nzShowPagination]="false" [nzScroll]="{y:700}" [nzNoResult]="">
+                        <ng-template #nzFixedHeader></ng-template>
+                        <span noResult></span>
+                        <tbody nz-tbody>
+                            <tr nz-tbody-tr *ngFor="let data of nzPhenotypeItemTable.data">
+                                <td nz-td *ngIf="data.isShow">{{data.item}}</td>
+                                <td nz-td>
+                                    <span style="cursor: pointer;" (click)="selectPhenotypeItem(data.item)"><i class="anticon anticon-plus"></i>添加</span>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </nz-table>
+                </ng-template>
+            </nz-card>
+        </div>
+        <div nz-col [nzSpan]="10">
+            <nz-card>
+                <ng-template #title>
+                    checked phenotypes
+                </ng-template>
+                <ng-template #body>
+                    <nz-table #nzCheckedPhenotypesTable [nzData]="checkedPhenotypes" [nzPageSize]="20" [nzShowPagination]="false" [nzScroll]="{y: 1000}" [nzNoResult]="">
+                        <ng-template #nzFixedHeader></ng-template>
+                        <span noResult></span>
+                        <tbody nz-tbody>
+                            <tr *ngFor="let data of nzCheckedPhenotypesTable.data">
+                                <td nz-td>{{data}}</td>
+                                <td nz-td>
+                                    <span style="cursor: pointer;" (click)="deletePhenotypeItem(data)"><i class="anticon anticon-close"></i>删除</span>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </nz-table>
+                </ng-template>
+            </nz-card>
+        </div>
+        
+    </div>

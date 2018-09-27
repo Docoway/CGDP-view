@@ -1,0 +1,59 @@
+nz-header {
+    padding: 0px;
+    background-color: #5caecd;
+}
+
+span>img {
+    width: 25px;
+    height: 25px;
+    margin-right: 5px;
+    margin-top: -5px;
+}
+
+#navbarSupportedContent>ul>li {
+    cursor: pointer;
+}
+
+.navbar-nav>li:hover{
+    background-color: whitesmoke;
+}
+.navbar-nav>li>a {
+    height: 64px;
+    padding-bottom: 0px;
+    padding-top: 0px;
+}
+
+.nav-link>span {
+    font-size: 18px;
+    padding-right: 10px;
+}
+
+.btn-group>a {
+    font-size: 15px;
+}
+
+.btn-group>ul {
+    padding: 2px 3px;
+    width: 80px;
+}
+
+.dropdown-menu>li {
+    height: 32px;
+}
+
+ul>li>ul>li>a {
+    height: 32px;
+    line-height: 32px;
+    padding: 2px 3px;
+}
+
+.ant-layout-footer {
+    padding: 0;
+}
+
+.footerContent {
+    height: 60px;
+    background-color: whitesmoke;
+    text-align: center;
+    width: 100%;
+}

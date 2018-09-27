@@ -1,0 +1,144 @@
+<div id="final_report_div" style="padding: 2%;">
+    <h2 style="text-align: center;"><b>遗传学测试(基因检测)报告</b></h2>
+    <div id="basicinfo_div" class="mt-5">
+        <nz-card>
+            <ng-template #body>
+                    <form nz-form [formGroup]="basicInfoForm" nzLayout="horizontal">
+                        <div nz-form-item nz-row>
+                            <div nz-form-label nz-col [nzSpan]="1"> 
+                                <label>姓名</label>
+                            </div>
+                            <div nz-form-control nz-col [nzSpan]="3">
+                                <input nz-input formControlName="patientName" type="text" [nzSize]="'large'">
+                            </div>
+                            <div nz-form-label nz-col [nzSpan]="3">
+                                <label>就诊类型</label>
+                            </div>
+                            <div nz-form-control nz-col [nzSpan]="3">
+                                <input nz-input formControlName="treatmentType" type="text" [nzSize]="'large'">
+                            </div>
+                            <div nz-form-label nz-col [nzSpan]="3">
+                                <label>门诊号</label>
+                            </div>
+                            <div nz-form-control nz-col [nzSpan]="3">
+                                <input nz-input formControlName="patientID" type="text" [nzSize]="'large'">
+                            </div>
+                            <div nz-form-label nz-col [nzSpan]="3">
+                                <label>床号</label>
+                            </div>
+                            <div nz-form-control nz-col [nzSpan]="2">
+                                <input nz-input formControlName="patientNum" type="text" [nzSize]="'large'">
+                            </div>
+                            <div nz-form-label nz-col [nzSpan]="2">
+                                <label>召回号</label>
+                            </div>
+                            <div nz-form-control nz-col [nzSpan]="1">
+                                <input nz-input formControlName="recallID" type="text" [nzSize]="'large'">
+                            </div>
+                        </div>
+                        <div nz-form-item nz-row>
+                            <div nz-form-label nz-col [nzSpan]="1">
+                                <label>性别</label>
+                            </div>
+                            <div nz-form-control nz-col [nzSpan]="3">
+                                <input nz-input formControlName="gender" type="text" [nzSize]="'large'">
+                            </div>
+                            <div nz-form-label nz-col [nzSpan]="3">
+                                <label>样本类型</label>
+                            </div>
+                            <div nz-form-control nz-col [nzSpan]="3">
+                                <input nz-input formControlName="sampleType" type="text" [nzSize]="'large'">
+                            </div>
+                            <div nz-form-label nz-col [nzSpan]="3">
+                                <label>申请科室</label>
+                            </div>
+                            <div nz-form-control nz-col [nzSpan]="3">
+                                <input nz-input formControlName="department" type="text" [nzSize]="'large'">
+                            </div>
+                            <div nz-form-label nz-col [nzSpan]="3">
+                                <label>临床诊断</label>
+                            </div>
+                            <div nz-form-control nz-col [nzSpan]="5">
+                                <input nz-input formControlName="miniDiagnosis" type="text" [nzSize]="'large'">
+                            </div>
+                        </div>
+                        <div nz-form-item nz-row>
+                            <div nz-form-label nz-col [nzSpan]="1">
+                                <label>年龄</label>
+                            </div>
+                            <div nz-form-control nz-col [nzSpan]="3">
+                                <input nz-input formControlName="age" type="text" [nzSize]="'large'">
+                            </div>
+                            <div nz-form-label nz-col [nzSpan]="3">
+                                <label>样本编号</label>
+                            </div>
+                            <div nz-form-control nz-col [nzSpan]="3">
+                                <input nz-input formControlName="sampleID" type="text" [nzSize]="'large'">
+                            </div>
+                            <div nz-form-label nz-col [nzSpan]="3">
+                                <label>申请医师</label>
+                            </div>
+                            <div nz-form-control nz-col [nzSpan]="3">
+                                <input nz-input formControlName="applicant" type="text" [nzSize]="'large'">
+                            </div>
+                            <div nz-form-label nz-col [nzSpan]="3">
+                                <label>申请项目</label>
+                            </div>
+                            <div nz-form-control nz-col [nzSpan]="5">
+                                <input nz-input formControlName="applicationItem" type="text" [nzSize]="'large'">
+                            </div>
+                        </div>
+                    </form>
+            </ng-template>
+        </nz-card>
+        
+    </div>
+    <div id="clinical_synopsis_div" class="mt-3">
+        <h4><b>临床信息：</b></h4>
+    </div>
+    <div id="detection_method_div" class="mt-3">
+        <h4><b>检测方法：</b></h4>
+    </div>
+    <div id="diagnosis_result_div" class="mt-3">
+        <h4><b>检测结果：</b></h4>
+        <nz-table #nzResultTable [nzData]="diagnosisResultData" [nzShowPagination]="false">
+            <thead nz-thead>
+                <tr>
+                    <th nz-th [nzWidth]="'10%'" *ngFor="let theadItem of resultTheadArr">{{theadItem}}</th>
+                    <th nz-th [nzWidth]="'10%'">操作</th>
+                </tr>
+            </thead>
+            <tbody nz-tbody>
+                <tr nz-tbody-tr *ngFor="let data of nzResultTable.data">
+                    <td nz-td *ngFor="let theadItem of resultTheadArrEng">
+                        <span *ngIf="editRow !== data.key">{{data[theadItem]}}</span>
+                        <span *ngIf="editRow === data.key">
+                            <input nz-input [(ngModel)]="tempEditObject[data.key][theadItem]">
+                        </span>
+                    </td>
+                    <td nz-td>
+                        <span *ngIf="editRow !== data.key">
+                            <a (click)="editResultTable(data)">编辑</a>
+                        </span>
+                        <span *ngIf="editRow === data.key">
+                            <a (click)="saveResultTable(data)">保存</a>
+                            <span nz-table-divider></span>
+                            <nz-popconfirm nzTitle="确定取消吗？" (nzOnConfirm)="cancelResultTable(data)">
+                              <a nz-popconfirm>取消</a>
+                            </nz-popconfirm>
+                        </span>
+                    </td>
+                </tr>
+            </tbody>
+        </nz-table>
+    </div>
+    <div id="diagnosis_conclusion_div" class="mt-3">
+        <h4><b>检测结论：</b></h4>
+    </div>
+    <div id="omim_reference_div" class="mt-3">
+        <h4><b>检测解释：</b></h4>
+    </div>
+    <div id="suggestion_div" class="mt-3">
+        <h4><b>检测建议：</b></h4>
+    </div>
+</div>
